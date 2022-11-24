@@ -1,11 +1,11 @@
 [
     {
-        "Category_id": 1,
-        "Car_model": "Toyota Esquire GI PREMIUM 2018",
+        "category_id": 1,
+        "car_model": "Toyota Esquire GI PREMIUM 2018",
         "address": " Tejgaon, Dhaka",
-        "Img": "https://i.bikroy-st.com/toyota-esquire-gi-premium-2018-for-sale-dhaka-61/fcdb09cd-d67d-4e37-bba3-58c2bdc15ffe/620/466/fitted.jpg",
+        "img": "https://i.bikroy-st.com/toyota-esquire-gi-premium-2018-for-sale-dhaka-61/fcdb09cd-d67d-4e37-bba3-58c2bdc15ffe/620/466/fitted.jpg",
         "model": "Esquire",
-        "Brand": "Toyota",
+        "brand": "Toyota",
         "buy": "2022",
         "fuel_type": "Hybrid, Octane",
         "condition": "used",
@@ -18,10 +18,10 @@
         }
     },
     {
-        "Category_id": 1,
-        "Car_model": "Toyota Allion A15 G 2011",
+        "category_id": 1,
+        "car_model": "Toyota Allion A15 G 2011",
         "address": " Tejgaon, Dhaka",
-        "Img": "https://i.bikroy-st.com/toyota-esquire-gi-premium-2018-for-sale-dhaka-61/fcdb09cd-d67d-4e37-bba3-58c2bdc15ffe/620/466/fitted.jpg",
+        "img": "https://i.bikroy-st.com/toyota-esquire-gi-premium-2018-for-sale-dhaka-61/fcdb09cd-d67d-4e37-bba3-58c2bdc15ffe/620/466/fitted.jpg",
         "model": "Allion",
         "Brand": "Toyota",
         "buy": "2016",
@@ -36,10 +36,10 @@
         }
     },
     {
-        "Category_id": 2,
-        "Car_model": "Nissan X-Trail Black 2017",
+        "category_id": 2,
+        "car_model": "Nissan X-Trail Black 2017",
         "address": " Tejgaon, Dhaka",
-        "Img": "https://i.bikroy-st.com/toyota-esquire-gi-premium-2018-for-sale-dhaka-61/fcdb09cd-d67d-4e37-bba3-58c2bdc15ffe/620/466/fitted.jpg",
+        "img": "https://i.bikroy-st.com/toyota-esquire-gi-premium-2018-for-sale-dhaka-61/fcdb09cd-d67d-4e37-bba3-58c2bdc15ffe/620/466/fitted.jpg",
         "model": "X-Trail",
         "Brand": "Nissan",
         "buy": "2022",

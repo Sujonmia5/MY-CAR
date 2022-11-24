@@ -12,7 +12,9 @@ const DashboardLayout = () => {
                 <div className='col-span-1'>
                     <DashboardTab />
                 </div>
-                <Outlet />
+                <div className='col-span-5 md:col-span-4'>
+                    <Outlet />
+                </div>
             </div>
             <Footer />
         </div>

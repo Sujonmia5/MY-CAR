@@ -1,14 +1,17 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+import CarsCard from './CarsCard/CarsCard';
 
 const Cars = () => {
 
     const cars = useLoaderData()
     console.log(cars);
     return (
-        <div>
-            Cars
-        </div>
+        <div className='container mt-10 md:grid grid-cols-2 mx-auto '>
+            {
+                cars.map(car => <CarsCard key={car._id} car={car}></CarsCard>)
+            }
+        </div >
     );
 };
 

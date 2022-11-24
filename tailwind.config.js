@@ -4,6 +4,7 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+    'node_modules/preline/dist/*.js',
   ],
   theme: {
     extend: {}
@@ -21,6 +22,7 @@ module.exports = {
   },
   plugins: [
     require('flowbite/plugin'),
-    require("daisyui")
+    require("daisyui"),
+    require('preline/plugin'),
   ],
 }

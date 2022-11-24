@@ -14,7 +14,7 @@ const Category = () => {
     console.log(categories);
 
     return (
-        <div className='container mx-auto'>
+        <div className='container mx-auto' id='Category'>
             <h1 className='font-bold font-serif text-red-600 italic text-5xl my-10'>Used Car Categories</h1>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
