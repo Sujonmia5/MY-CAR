@@ -19,7 +19,7 @@ const Category = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
                     categories.map((category, i) => <>
-                        <Link to={`/cars/${category.Category_id}`} key={i}>
+                        <Link to={`/cars/${category.Brand}`} key={i}>
                             <div className="w-80 mx-auto bg-white shadow rounded border border-transparent hover:border-blue-500 cursor-pointer">
                                 <div className="h-48 w-full bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center">
                                     <img className='h-44' src={category.img} alt="" />

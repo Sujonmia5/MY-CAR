@@ -12,6 +12,8 @@
         "color": "Beige",
         "selling_address": "2/8 South Begunbari,Hatirjheel,Tejgaon I/A,Dhaka-1208.",
         "price": 3500,
+        "quantity": 1,
+        "sold": "false",
         "seller_info": {
             "name": "sujon",
             "email": "mdsujon44@gmail.com"
@@ -30,6 +32,8 @@
         "color": "RED WINE",
         "selling_address": "2/8 South Begunbari,Hatirjheel,Tejgaon I/A,Dhaka-1208.",
         "price": 4500,
+        "quantity": 1,
+        "sold": "false",
         "seller_info": {
             "name": "sujon",
             "email": "mdsujon44@gmail.com"
@@ -48,6 +52,8 @@
         "color": "Beige",
         "selling_address": "2/8 South Begunbari,Hatirjheel,Tejgaon I/A,Dhaka-1208.",
         "price": 4000,
+        "quantity": 1,
+        "sold": "false",
         "seller_info": {
             "name": "sujon",
             "email": "mdsujon44@gmail.com"
