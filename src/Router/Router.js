@@ -5,6 +5,7 @@ import AllSeller from "../Components/Dashboard/AllSeller/AllSeller";
 import MyOrders from "../Components/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../Components/Dashboard/MyProducts/MyProducts";
 import ReportedItems from "../Components/Dashboard/ReportedItems/ReportedItems";
+import Cars from "../Components/Home/Cars/Cars";
 import Home from "../Components/Home/Home";
 import Login from "../Components/Login/Login";
 import Registration from "../Components/Registration/Registration";
@@ -20,6 +21,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/home', element: <Home />
+            },
+            {
+                path: '/cars/:id', element: <Cars />,
+                loader: ({ params }) => fetch(`http://localhost:5000/cars/data/${params.id}`)
+
             },
             {
                 path: '/login', element: <Login />

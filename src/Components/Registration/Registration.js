@@ -1,20 +1,22 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { AuthContext } from '../../Context/Context';
-import { toast } from 'react-toastify';
+import { toastify } from '../Shared/Toast';
 
 const Registration = () => {
     const [buyer, setBuyer] = useState(true)
     const [error, setError] = useState('')
-    const { user, createUser } = useContext(AuthContext);
+    const { user, createUser, updateUser } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const Navigate = useNavigate()
     let userRole = ''
     if (buyer) {
         userRole = 'buyer'
     } else {
         userRole = 'seller'
     }
+
     const submitData = (data) => {
         const email = data.email;
         const name = data.name;
@@ -28,17 +30,36 @@ const Registration = () => {
 
         createUser(email, password)
             .then(result => {
-                console.log(result.user);
-                toast('Account create successful')
+                const user = result.user;
+                update(name, null, userData)
             })
             .catch(err => {
                 setError(err.message)
-                console.log(err);
             })
-
-
     }
-    console.log();
+
+    const update = (name, url, userData) => {
+        updateUser(name, url)
+            .then(() => {
+
+                fetch('http://localhost:5000/users', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.acknowledged) {
+                            toastify('Account create successful')
+                            Navigate('/')
+                        }
+                    })
+            })
+            .catch(() => { })
+    }
+
     return (
         <div className="">
             <div className="p-8 lg:w-1/2 mx-auto">
@@ -49,7 +70,7 @@ const Registration = () => {
                             <div className="relative">
                                 <input {...register('name', { required: 'Name Required' })} className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline" id="name" type="text" placeholder="Enter your Name" />
                                 <div className="absolute left-0 inset-y-0 flex items-center">
-                                    <svg aria-hidden="true" className="h-7 w-7 ml-3 text-gray-400 p-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                                    <svg aria-hidden="true" className="h-7 w-7 ml-3 text-gray-400 p-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
                                 </div>
 
                             </div>
@@ -80,16 +101,16 @@ const Registration = () => {
                             <div className='flex gap-5'>
                                 <div className="mt-4 flex items-center text-gray-500">
                                     <input
-                                        onClick={() => setBuyer(true)}
+                                        onChange={() => setBuyer(true)}
                                         type="radio" name="radio-7" className="radio radio-info" checked id='buyer' />
-                                    <label className="text-sm ml-1" for="remember">Buyer
+                                    <label className="text-sm ml-1" htmlFor="remember">Buyer
                                     </label>
                                 </div>
                                 <div className="mt-4 flex items-center text-gray-500">
                                     <input
-                                        onClick={() => setBuyer(false)}
-                                        type="radio" name="radio-7" className="radio radio-info" id='buyer' />
-                                    <label className="text-sm  ml-1" for="remember">Seller
+                                        onChange={() => setBuyer(false)}
+                                        type="radio" name="radio-7" className="radio radio-info" id='seller' />
+                                    <label className="text-sm  ml-1" htmlFor="remember">Seller
                                     </label>
                                 </div>
                             </div>
@@ -103,7 +124,7 @@ const Registration = () => {
                                 <div className="flex items-center justify-center space-x-4 mt-3">
                                     <button className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="w-6 h-6 mr-3"            >
-                                            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"              >
+                                            <path fillRule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"              >
                                             </path>
                                         </svg>Github
                                     </button>
@@ -118,7 +139,7 @@ const Registration = () => {
                                 </div>
                             </div>
                         </div>
-                        <p className='text-gray-900 mt-5 w-full'>Don't have an account? <Link to='/registration' className='text-blue-600 hover:underline'>Create account</Link></p>
+                        <p className='text-gray-900 mt-5 w-full'>Already have an account? <Link to='/login' className='text-blue-600 hover:underline'>Please Login</Link></p>
                     </div>
 
                 </div>

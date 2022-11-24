@@ -1,0 +1,22 @@
+[
+    {
+        "Category_id": 1,
+        "Brand": "Toyota",
+        "img": "https://c8.alamy.com/comp/D455MN/toyota-logo-as-an-app-icon-clipping-path-included-D455MN.jpg"
+    },
+    {
+        "Category_id": 2,
+        "Brand": "Nissan",
+        "img": "https://wieck-nissanao-production.s3.amazonaws.com/photos/9c4cf69b27a0cbc0a0af905c8bdf8e24797254ef/thumbnail-364x204.jpg"
+    },
+    {
+        "Category_id": 3,
+        "Brand": "Honda",
+        "img": "https://1000logos.net/wp-content/uploads/2018/03/Honda-logo.png"
+    },
+    {
+        "Category_id": 4,
+        "Brand": "Tata",
+        "img": "https://media.gettyimages.com/id/466901545/photo/the-tata-motors-logo-is-pictured-during-the-12th-auto-expo-in-greater-noida-on-february-5-2014.jpg?s=612x612&w=gi&k=20&c=oNrEXHz0OjGirI9OLg20IU7lrCOdKnq-L0YiaswLgNk="
+    }
+]
