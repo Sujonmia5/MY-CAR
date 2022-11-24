@@ -1,10 +1,47 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../../../Context/Context';
 
 const CarsCard = ({ car }) => {
-    const { brand, car_model, img, address, buy, color, condition, date, fuel_type, price, seller_info, selling_address
+    const { user } = useContext(AuthContext)
+    const { brand, car_model, img, address, buy, color, condition, date, fuel_type, price, seller_info, selling_address, _id, booking
     } = car
-    console.log(car);
+    const bookingHandler = (car) => {
+        console.log(car);
+        const orderData = {
+            brand,
+            car_model,
+            img,
+            address,
+            buy,
+            price,
+            date,
+            seller_info,
+            buyer_name: user.displayName,
+            buyer_email: user.email,
+        }
+        // console.log(orderData);
+        fetch('http://localhost:5000/orders', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    fetch(`http://localhost:5000/bookings?id=${_id}`, {
+                        method: "PUT",
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            toast.success('Booking Done')
+                            console.log(data)
+                        })
+                }
+            })
+    }
     return (
         <div class="flex mx-auto flex-col  bg-white border-2 border-[#ffcb5f] rounded-lg hover:shadow-md hover:shadow-yellow-300 md:flex-col md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 md:w-[550px] dark:hover:bg-gray-700 relative" alt=''>
 
@@ -32,8 +69,9 @@ const CarsCard = ({ car }) => {
                     <p className='mb-3 font-semibold text-gray-900 dark:text-gray-400'>Number: {seller_info?.number ? `${seller_info.number}` : 'Not a number'}</p>
                 </div>
             </div>
-            <button className='btn absolute btn-primary bottom-2 btn-md right-2'>Booking Now
-                <svg className='w-5 text-gray-100  ml-2' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></svg>
+
+            <button onClick={() => bookingHandler(car)} className={booking ? 'btn-disabled btn absolute bottom-2 btn-md right-2 bg-gray-600 text-gray-200' : 'btn absolute btn-primary bottom-2 btn-md right-2'}>Booking Now
+                <svg className='w-5 text-white ml-2' style={{ color: 'white' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></svg>
             </button>
         </div>
     );

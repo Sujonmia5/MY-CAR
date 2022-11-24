@@ -8,11 +8,11 @@ const DashboardLayout = () => {
     return (
         <div>
             <Navbar />
-            <div className='container mx-auto grid grid-cols-5'>
+            <div className='container mx-auto grid grid-cols-4'>
                 <div className='col-span-1'>
                     <DashboardTab />
                 </div>
-                <div className='col-span-5 md:col-span-4'>
+                <div className='col-span-4 md:col-span-3'>
                     <Outlet />
                 </div>
             </div>

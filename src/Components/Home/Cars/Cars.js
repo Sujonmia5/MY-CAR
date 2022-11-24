@@ -7,7 +7,7 @@ const Cars = () => {
     const cars = useLoaderData()
     console.log(cars);
     return (
-        <div className='container mt-10 md:grid grid-cols-2 mx-auto '>
+        <div className='container mt-10 md:grid grid-cols-2 gap-y-5 mx-auto '>
             {
                 cars.map(car => <CarsCard key={car._id} car={car}></CarsCard>)
             }

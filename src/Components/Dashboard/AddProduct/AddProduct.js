@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Context/Context';
 import Spinner from '../../Shared/Spinner/Spinner';
 
 const AddProduct = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm()
     const { user } = useContext(AuthContext)
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const [click, setClick] = useState(false)
     const { data: brandCategory = [], isLoading } = useQuery({
         queryKey: ['addProduct'],
         queryFn: async () => {
@@ -20,37 +22,56 @@ const AddProduct = () => {
         return <Spinner></Spinner>
     }
     // brand, car_model, img, address, buy, color, condition, date, fuel_type, price, seller_info, selling_address
-    const formData = new FormData()
     const carAddHandler = (data) => {
+        setClick(true)
+        const formData = new FormData()
         formData.append('image', data.image[0])
-        fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_KEY}`, {
-            method: 'POST',
+        const imgKey = process.env.REACT_APP_IMGBB_KEY
+        console.log(data, formData);
+        fetch(`https://api.imgbb.com/1/upload?key=020578539c95626a9a900d21031a76b1`, {
+            method: "POST",
             body: formData
         })
             .then(res => res.json())
-            .then(data => {
-                console.log(data);
+            .then(result => {
+                const AddCar = {
+                    brand: data.brand,
+                    car_model: data.car_model,
+                    condition: data.condition,
+                    address: data.location,
+                    price: data.price,
+                    buy: data.registration,
+                    fuel_type: data.fuel_type,
+                    seller_info: {
+                        name: user.displayName,
+                        email: user.email,
+                        phone: user.phoneNumber,
+                    },
+                    img: result.data.url,
+                }
+                product(AddCar);
             })
-        const AddCar = {
-            brand: data.brand,
-            car_model: data.car_model,
-            condition: data.condition,
-            address: data.location,
-            price: data.price,
-            buy: data.registration,
-            fuel_type: data.fuel_type,
-            seller_info: {
-                name: user.displayName,
-                email: user.email,
-                phone: user.phoneNumber,
-            }
-            // img:
-        }
-        console.log(formData, AddCar);
+    }
+
+    const product = (AddCar) => {
+        fetch('http://localhost:5000/cars', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(AddCar)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Car Added successful')
+                    setClick(false)
+                }
+            })
     }
 
     return (
-        <div className='flex justify-center items-center w-full  mt-20'>
+        <div className='flex justify-center items-center w-full  mt-10'>
             <div class="p-8 rounded border border-gray-200">
                 <h1 class="font-medium text-gray-800 font-serif text-3xl">Add Cars</h1>
                 <form onSubmit={handleSubmit(carAddHandler)}>
@@ -112,7 +133,7 @@ const AddProduct = () => {
                         </div>
                     </div>
                     <div class="space-x-4 mt-8">
-                        <button type="submit" class="py-2 px-4 btn-primary y text-white rounded  disabled:opacity-50">Add Car</button>
+                        <button type="submit" class="py-2 px-4 btn-primary y text-white rounded  disabled:opacity-50">{click ? <Spinner /> : 'Add Car'}</button>
                     </div>
                 </form>
 

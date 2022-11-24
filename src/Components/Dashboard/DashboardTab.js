@@ -7,13 +7,13 @@ const DashboardTab = () => {
     let activeClassName = "text-gray-900 text-base border-b-2 inline-flex p-4 rounded-t-lg border-b-2 border-primary group"
 
     return (
-        <div className='relative'>
+        <div className='relative w-96'>
             <button onClick={() => setSidebar(!sidebar)} type="button" class="text-gray-500 md:hidden absolute left-0 z-50 bg-gray-100 hover:text-gray-600" data-hs-overlay="#docs-sidebar" aria-controls="docs-sidebar" aria-label="Toggle-navigation">
                 <span class="sr-only">Toggle Navigation</span>
                 {sidebar ? <svg class="w-5 h-20 text-gray-400" width="16" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z" /></svg> : <svg class="w-5 h-20 text-gray-400" width="16" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z" /></svg>}
             </button>
             {/* <!--End Navigation Toggle-- > */}
-            <div className={sidebar ? 'transition-all duration-500 transform     border-b absolute  -left-0 w-60 md:left-28 md:block container mx-auto bg-white mt-5 shadow-lg border-gray-200 dark:border-gray-700 top-10' : 'border-b absolute duration-500  -left-96 md:left-28 md:block container mx-auto bg-white mt-5 shadow border-gray-200 dark:border-gray-700'}>
+            <div className={sidebar ? 'transition-all z-50 duration-500 transform     border-b absolute  -left-0 w-60 md:left-28 md:block container mx-auto bg-white mt-5 shadow-lg border-gray-200 dark:border-gray-700 top-10' : 'border-b absolute duration-500  -left-96 md:left-28 md:block container mx-auto bg-white mt-5 shadow border-gray-200 dark:border-gray-700 w-72'}>
                 <ul className="-mb-px text-sm font-medium py-5 text-start text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
                         <NavLink to="/dashboard/myOrders"
