@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../../Context/Context';
+import { FaArrowRight } from "react-icons/fa";
 
 const CarsCard = ({ car }) => {
     const { user } = useContext(AuthContext)
@@ -70,8 +71,8 @@ const CarsCard = ({ car }) => {
                 </div>
             </div>
 
-            <button onClick={() => bookingHandler(car)} className={booking ? 'btn-disabled btn absolute bottom-2 btn-md right-2 bg-gray-600 text-gray-200' : 'btn absolute btn-primary bottom-2 btn-md right-2'}>Booking Now
-                <svg className='w-5 text-white ml-2' style={{ color: 'white' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></svg>
+            <button onClick={() => bookingHandler(car)} className={booking ? 'btn-disabled btn absolute bottom-2 btn-md right-2 bg-gray-600 text-gray-200' : 'btn absolute btn-primary bottom-2 btn-md right-2'}>{booking ? 'Already Booked' : 'Booking Now'}
+                <FaArrowRight className='w-5 disabled:text-white  text-gray-200 ml-2'></FaArrowRight>
             </button>
         </div>
     );
