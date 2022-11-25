@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Spinner from '../../Shared/Spinner/Spinner';
 
 const Category = () => {
     const { data: categories = [], isLoading } = useQuery({
@@ -11,15 +12,17 @@ const Category = () => {
             return data
         }
     })
-    console.log(categories);
+    if (isLoading) {
+        return <Spinner />
+    }
 
     return (
         <div className='container mx-auto' id='Category'>
             <h1 className='font-bold font-serif text-red-600 italic text-5xl my-10'>Used Car Categories</h1>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
-                    categories.map((category, i) => <>
-                        <Link to={`/cars/${category.Brand}`} key={i}>
+                    categories.map(category => <>
+                        <Link key={category._id} to={`/cars/${category.Brand}`}>
                             <div className="w-80 mx-auto bg-white shadow rounded border border-transparent hover:border-blue-500 cursor-pointer">
                                 <div className="h-48 w-full bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center">
                                     <img className='h-44' src={category.img} alt="" />
