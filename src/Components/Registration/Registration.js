@@ -1,17 +1,29 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { AuthContext } from '../../Context/Context';
 import { toastify } from '../Shared/Toast';
+import useJWT from '../../Hooks/useJWT';
+import Spinner from '../Shared/Spinner/Spinner';
 
 
 
 const Registration = () => {
     const [buyer, setBuyer] = useState(true)
     const [error, setError] = useState('')
+    const [userEmail, setUserEmail] = useState()
     const { user, createUser, updateUser, GitHubHandler, GoogleHandler } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const Navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
+    const { isToken } = useJWT(userEmail)
+
+
+    if (isToken) {
+        toastify('Account create successful')
+        Navigate(from, { replace: true })
+    }
 
     let userRole = ''
     if (buyer) {
@@ -97,10 +109,9 @@ const Registration = () => {
             body: JSON.stringify(data)
         })
             .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
-                    toastify('Account create successful')
-                    Navigate('/')
+            .then(result => {
+                if (result.acknowledged) {
+                    setUserEmail(data.email)
                 }
             })
     }

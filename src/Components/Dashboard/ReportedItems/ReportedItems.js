@@ -53,7 +53,7 @@ const ReportedItems = () => {
                                     <th className='text-gray-800 p-1 text-center'>{i + 1}</th>
                                     <td className='text-gray-800 py-2 px-2'>
                                         <div className="mask w-24 rounded">
-                                            <img className='w-full rounded' src={report.img} alt="Avatar Tailwind CSS Component" />
+                                            <img className='w-full rounded' src={report.img} alt="Car Pic" />
                                         </div>
                                     </td>
                                     <td className='text-gray-800'>

@@ -40,7 +40,7 @@ const MyProducts = () => {
                                     <th className='text-gray-800'>{i + 1}</th>
                                     <td className='text-gray-800'>
                                         <div className="mask w-16 h-16 rounded">
-                                            <img className='w-full rounded' src={product.img} alt="Avatar Tailwind CSS Component" />
+                                            <img className='w-full rounded' src={product.img} alt="Car Pic" />
                                         </div>
                                     </td>
                                     <td className='text-gray-800'>{product.car_model}</td>

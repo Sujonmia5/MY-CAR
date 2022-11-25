@@ -56,7 +56,7 @@ const AllBuyers = () => {
                                             <div className="mask w-16 h-16 rounded">
                                                 <img className='w-full rounded' src={user?.photoURL ? `${user.photoURL}` :
                                                     `${UserPhoto}`
-                                                } alt="Avatar Tailwind CSS Component" />
+                                                } alt="Profile Pic" />
                                             </div>
                                         </td>
                                         <td className='text-gray-800'><strong>{seller.name}</strong></td>

@@ -55,7 +55,7 @@ const MyOrders = () => {
                                     <th className='text-gray-800'>{i + 1}</th>
                                     <td className='text-gray-800'>
                                         <div className="mask w-16 h-16 rounded">
-                                            <img className='w-full rounded' src={order.img} alt="Avatar Tailwind CSS Component" />
+                                            <img className='w-full rounded' src={order.img} alt="Car pic" />
                                         </div>
                                     </td>
                                     <td className='text-gray-800'>{order.car_model}</td>
