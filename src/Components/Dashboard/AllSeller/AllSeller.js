@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../Context/Context';
 import Spinner from '../../Shared/Spinner/Spinner';
+import UserPhoto from '../../../assets/userPhoto.svg';
 
 const AllSeller = () => {
-
-    const { data: AllSellers = [], isLoading } = useQuery({
+    const { user } = useContext(AuthContext)
+    const { data: AllSellers = [], isLoading, refetch } = useQuery({
         queryKey: ['allSeller'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/sellers?role=seller')
@@ -16,6 +18,16 @@ const AllSeller = () => {
         return <Spinner />
     }
 
+    const RemoveSeller = (id) => {
+        fetch(`http://localhost:5000/sellers?id=${id}&role=buyer`, {
+            method: "PUT",
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                refetch()
+            })
+    }
     return (
         <>
             <h1 className='text-gray-800 text-center'>ALL SELLERS</h1>
@@ -25,10 +37,11 @@ const AllSeller = () => {
                         <thead>
                             <tr>
                                 <th className='text-base'></th>
+                                <th className='text-base'>Seller Photo</th>
                                 <th className='text-base'>Seller Name</th>
                                 <th className='text-base'>Seller Email</th>
                                 <th className='text-base'>Seller Delete</th>
-                                <th className='text-base'>Delete User</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -36,14 +49,17 @@ const AllSeller = () => {
                                 AllSellers.map((seller, i) =>
                                     <tr key={seller._id}>
                                         <th className='text-gray-800'>{i + 1}</th>
-
+                                        <td className='text-gray-800'>
+                                            <div className="mask w-16 h-16 rounded">
+                                                <img className='w-full rounded' src={user?.photoURL ? `${user.photoURL}` :
+                                                    `${UserPhoto}`
+                                                } alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </td>
                                         <td className='text-gray-800'><strong>{seller.name}</strong></td>
                                         <td className='text-gray-800'><strong>{seller.email}</strong></td>
                                         <td className='text-gray-800'>
-                                            <button className='btn btn-error btn-sm'>Remove Seller</button>
-                                        </td>
-                                        <td className='text-gray-800'>
-                                            <button className='btn btn-success btn-sm'>Delete Seller</button>
+                                            <button onClick={() => RemoveSeller(seller._id)} className='btn btn-error btn-sm'>Remove Seller</button>
                                         </td>
                                     </tr>)
                             }

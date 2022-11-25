@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../../Context/Context';
 import Spinner from '../../Shared/Spinner/Spinner';
+import UserPhoto from '../../../assets/userPhoto.svg';
 
 const AllBuyers = () => {
+    const { user } = useContext(AuthContext)
 
-
-    const { data: AllBuyers = [], isLoading } = useQuery({
+    const { data: AllBuyers = [], isLoading, refetch } = useQuery({
         queryKey: ['allBuyers'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/sellers?role=buyer')
@@ -16,7 +19,18 @@ const AllBuyers = () => {
     if (isLoading) {
         return <Spinner />
     }
-    console.log(AllBuyers);
+    const MakeSeller = (id) => {
+        fetch(`http://localhost:5000/sellers?id=${id}&role=seller`, {
+            method: "PUT",
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Seller make Successful')
+                    refetch()
+                }
+            })
+    }
 
     return (
         <>
@@ -27,10 +41,10 @@ const AllBuyers = () => {
                         <thead>
                             <tr>
                                 <th className='text-base'></th>
+                                <th className='text-base'>Buyer Photo</th>
                                 <th className='text-base'>Buyer Name</th>
                                 <th className='text-base'>Buyer Email</th>
                                 <th className='text-base'>Seller Make</th>
-                                <th className='text-base'>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,14 +52,18 @@ const AllBuyers = () => {
                                 AllBuyers.map((seller, i) =>
                                     <tr key={seller._id}>
                                         <th className='text-gray-800'>{i + 1}</th>
-
+                                        <td className='text-gray-800'>
+                                            <div className="mask w-16 h-16 rounded">
+                                                <img className='w-full rounded' src={user?.photoURL ? `${user.photoURL}` :
+                                                    `${UserPhoto}`
+                                                } alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </td>
                                         <td className='text-gray-800'><strong>{seller.name}</strong></td>
+
                                         <td className='text-gray-800'><strong>{seller.email}</strong></td>
                                         <td className='text-gray-800'>
-                                            <button className='btn btn-info btn-sm'>Make Seller</button>
-                                        </td>
-                                        <td className='text-gray-800'>
-                                            <button className='btn btn-error btn-sm'>Delete</button>
+                                            <button onClick={() => MakeSeller(seller._id)} className='btn btn-info btn-sm'>Make Seller</button>
                                         </td>
                                     </tr>)
                             }

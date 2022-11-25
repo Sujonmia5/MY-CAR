@@ -10,15 +10,19 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
     } = car
 
     const reportHandler = (car) => {
+        // console.log(car);
+        const { address, brand, buy, car_model, color, condition, fuel_type, img, model, price, seller_info, sold, selling_address, _id: carId } = car
+
         const reportedCar = {
-            ...car,
+            address, brand, buy, car_model, color, condition, fuel_type, img, model, price, seller_info, sold, selling_address,
+            carId,
             report: true,
             reporter_info: {
                 name: user.displayName,
                 email: user.email,
             }
         }
-
+        console.log(reportedCar);
         fetch('http://localhost:5000/report', {
             method: "POST",
             headers: {
@@ -28,6 +32,7 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (data.acknowledged) {
                     toast.success('Reported Success')
                 }

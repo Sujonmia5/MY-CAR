@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../../../Context/Context';
 
 const BookingModal = ({ bookingCar, setModalClose }) => {
     const { user } = useContext(AuthContext)
     const { brand, car_model, img, address, buy, price, date, seller_info } = bookingCar
+
     const bookingHandler = (event) => {
         event.preventDefault()
-        console.log(event);
         const number = event.target.number.value;
         const location = event.target.location.value;
         const orderData = {
@@ -23,7 +24,7 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
             buyer_number: number,
             meeting_location: location,
         }
-        console.log(orderData);
+
         fetch('http://localhost:5000/orders', {
             method: 'POST',
             headers: {
@@ -34,17 +35,11 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                setModalClose(null)
-                // if (data.acknowledged) {
-                //     fetch(`http://localhost:5000/bookings?id=${data._id}`, {
-                //         method: "PUT",
-                //     })
-                //         .then(res => res.json())
-                //         .then(data => {
-                //             toast.success('Booking Done')
-                //             console.log(data)
-                //         })
-                // }
+                console.log(data._id);
+                if (data.acknowledged) {
+                    toast.success('Booking Done')
+                    setModalClose(null)
+                }
             })
     }
 

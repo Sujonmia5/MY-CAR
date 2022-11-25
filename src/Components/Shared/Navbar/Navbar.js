@@ -1,28 +1,58 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { FaSignOutAlt } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import MYCAR from '../../../assets/tavola-spa-cura-della-auto-logo-mycar.png';
+import { AuthContext } from "../../../Context/Context";
 
 export const Navbar = () => {
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { user, LogOut } = useContext(AuthContext)
+    const Naviagte = useNavigate()
+
+    const LogoutHandler = () => {
+        LogOut()
+            .then(() => {
+                Naviagte('/login')
+            })
+            .catch(() => { })
+    }
 
     const menu = <>
         <li><Link to="/home" aria-label="Home" title="Home" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">Home</Link></li>
 
-        <li><a href="#Category" id="Category" aria-label="Category" title="Category" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">Category</a></li>
-
-        <li><Link to="/dashboard" aria-label="Dashboard" title="Dashboard" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">Dashboard</Link></li>
+        {
+            user?.uid && <li><Link to="/dashboard" aria-label="Dashboard" title="Dashboard" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">Dashboard</Link></li>
+        }
+        <li><a href="#Category" id="Category" aria-label="Category" title="Category" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"> Blog</a></li>
 
         <li><Link to="/about" aria-label="About" title="About" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">About</Link></li>
 
-        <li><Link to="/login" aria-label="Login" title="Login" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">Login</Link></li>
+        {
+            user?.uid ?
+                <>
+                    <li>
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-20 rounded-full">
+                                <img src="https://placeimg.com/80/80/people" alt="" />
+                            </div>
+                        </label>
+                    </li>
+                    <li onClick={LogoutHandler} className="flex flex-row-reverse hover:bg-gray-500 text-gray-900 hover:text-white duration-300 p-2 rounded">
+                        <FaSignOutAlt className="text-2xl ml-2" />
+                        <button to="" aria-label="LogOut" title="LogOut" className=" font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400">LogOut</button>
+                    </li>
+                </>
+                : <>
+                    <li><Link to="/login" aria-label="Login" title="Login" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">Login</Link></li>
+                </>
+        }
     </>
 
     return (
-
         <div>
-
-            <div className="px-4 sticky top-0 z-50 bg-white shadow-xl rounded py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-                <div className="relative flex items-center justify-between">
+            <div className="px-4 sticky top-0 z-50 bg-white shadow-xl rounded py-3 mx-auto sm:max-w-xl md:max-w-full lg:w-full md:px-24 lg:px-20">
+                <div className="relative lg:mx-20 flex items-center justify-between">
                     <a
                         href="/"
                         aria-label="Company"
@@ -34,7 +64,7 @@ export const Navbar = () => {
                             MY CARS
                         </span>
                     </a>
-                    <ul className="flex items-center hidden space-x-8 lg:flex">
+                    <ul className="flex items-center hidden space-x-5 lg:flex">
                         {menu}
                     </ul>
                     <div className="lg:hidden">

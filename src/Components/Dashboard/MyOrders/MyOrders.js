@@ -6,7 +6,7 @@ import Spinner from '../../Shared/Spinner/Spinner';
 const MyOrders = () => {
     const { user, loading } = useContext(AuthContext)
     console.log(user.email);
-    const { data: MyOrders = [], isLoading } = useQuery({
+    const { data: MyOrders = [], isLoading, refetch } = useQuery({
         queryKey: ['MyOrders', user.email],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/orders?email=${user?.email}`)
@@ -18,6 +18,21 @@ const MyOrders = () => {
     if (loading || isLoading) {
         return <Spinner />
     }
+
+    const orderDeleteHandler = (id) => {
+        console.log(id);
+        fetch(`http://localhost:5000/orders?id=${id}`, {
+            method: "DELETE",
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount) {
+                    console.log(data);
+                    refetch()
+                }
+            })
+    }
+
     return (
         <div className='flex justify-start w-full md:h-[70vh]  mt-10'>
             <div className="container pl-10 pr-36 overflow-x-auto col-span-4">
@@ -47,7 +62,7 @@ const MyOrders = () => {
                                     <td className='text-gray-800'><strong>{order.brand}</strong></td>
                                     <td className=''><strong className='text-warning'>${order.price}</strong></td>
                                     <td className='text-gray-800'>
-                                        <button className='btn btn-error btn-sm'>Delete</button>
+                                        <button onClick={() => orderDeleteHandler(order._id)} className='btn btn-error btn-sm'>Delete</button>
                                     </td>
                                     <td className='text-gray-800'>
                                         <button className='btn btn-success btn-sm'>pay</button>
