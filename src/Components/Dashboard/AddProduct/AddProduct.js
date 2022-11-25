@@ -45,7 +45,6 @@ const AddProduct = () => {
                     seller_info: {
                         name: user.displayName,
                         email: user.email,
-                        phone: user.phoneNumber,
                     },
                     img: result.data.url,
                 }
