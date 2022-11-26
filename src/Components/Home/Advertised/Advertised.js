@@ -2,7 +2,7 @@ import React from 'react';
 
 const Advertised = () => {
     return (
-        <div>Advertised </div>
+        <div className='mt-20'>Advertised </div>
     );
 };
 
