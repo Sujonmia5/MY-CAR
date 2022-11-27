@@ -41,6 +41,7 @@ const AddProduct = () => {
                     address: data.location,
                     price: data.price,
                     buy: data.registration,
+                    sold: false,
                     fuel_type: data.fuel_type,
                     seller_info: {
                         name: user.displayName,

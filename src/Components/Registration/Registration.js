@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from '../../Context/Context';
 import { toastify } from '../Shared/Toast';
 import useJWT from '../../Hooks/useJWT';
-import Spinner from '../Shared/Spinner/Spinner';
 
 
 
@@ -17,6 +16,7 @@ const Registration = () => {
     const Navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/'
+
     const { isToken } = useJWT(userEmail)
 
 
@@ -94,7 +94,6 @@ const Registration = () => {
                     role: userRole
                 }
                 saveUser(data)
-                // console.log(data);
             })
             .catch(err => {
                 setError(err.message)

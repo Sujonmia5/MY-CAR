@@ -11,7 +11,7 @@ const Cars = () => {
     const cars = useLoaderData()
     console.log(modalClose);
     return (
-        <div className='w-[1240px] mt-10 md:grid grid-cols-2 gap-y-5 mx-auto '>
+        <div className='lg:w-[1240px] mt-10 grid lg:grid-cols-2 gap-y-5 mx-auto '>
             {
                 cars.map(car => <CarsCard key={car._id}
                     car={car}

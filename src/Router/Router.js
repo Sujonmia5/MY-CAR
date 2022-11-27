@@ -10,9 +10,12 @@ import Cars from "../Components/Home/Cars/Cars";
 import Home from "../Components/Home/Home";
 import Login from "../Components/Login/Login";
 import Registration from "../Components/Registration/Registration";
+import Error from "../Components/Shared/Error/Error";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
+import SellerRoute from "./SellerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -37,7 +40,9 @@ export const router = createBrowserRouter([
             },
         ]
     },
-
+    {
+        path: '*', element: <Error></Error>
+    },
     {
         path: '/dashboard', element: <PrivateRoute>
             <DashboardLayout></DashboardLayout>
@@ -47,23 +52,48 @@ export const router = createBrowserRouter([
                 path: '/dashboard', element: <PrivateRoute><MyOrders /></PrivateRoute>
             },
             {
-                path: '/dashboard/myProducts', element: <PrivateRoute><MyProducts /></PrivateRoute>
+                path: '/dashboard/myProducts', element: <PrivateRoute>
+                    <SellerRoute>
+                        <MyProducts />
+                    </SellerRoute>
+                </PrivateRoute>
             },
             {
-                path: '/dashboard/addProducts', element: <PrivateRoute><AddProduct /></PrivateRoute>
+                path: '/dashboard/addProducts', element: <PrivateRoute>
+                    <SellerRoute>
+                        <AddProduct />
+                    </SellerRoute>
+                </PrivateRoute>
             },
             {
-                path: '/dashboard/allSeller', element: <PrivateRoute><AllSeller /></PrivateRoute>
+                path: '/dashboard/allSeller', element: <PrivateRoute>
+                    <AdminRoute>
+                        <AllSeller />
+                    </AdminRoute>
+                </PrivateRoute>
             },
             {
-                path: '/dashboard/allBuyers', element: <PrivateRoute><AllBuyers /></PrivateRoute>
+                path: '/dashboard/allBuyers', element: <PrivateRoute>
+                    <AdminRoute>
+                        <AllBuyers />
+                    </AdminRoute>
+                </PrivateRoute>
             },
             {
-                path: '/dashboard/allUsers', element: <PrivateRoute><AllUsers /></PrivateRoute>
+                path: '/dashboard/allUsers', element: <PrivateRoute>
+                    <AdminRoute>
+                        <AllUsers />
+                    </AdminRoute>
+                </PrivateRoute>
             },
             {
-                path: '/dashboard/report', element: <PrivateRoute><ReportedItems /></PrivateRoute>
+                path: '/dashboard/report', element: <PrivateRoute>
+                    <AdminRoute>
+                        <ReportedItems />
+                    </AdminRoute>
+                </PrivateRoute>
             }
         ]
-    }
+    },
+
 ])

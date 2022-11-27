@@ -13,7 +13,6 @@ const MyProducts = () => {
             return data;
         }
     })
-    console.log(user, MyProducts);
 
     if (isLoading || loading) {
         return <Spinner></Spinner>
@@ -26,9 +25,14 @@ const MyProducts = () => {
                         <tr>
                             <th></th>
                             <th>Car Photo</th>
-                            <th>Model</th>
-                            <th>Brand</th>
+                            <th>Model/
+                                <br />
+                                Brand
+                            </th>
                             <th>Sell Price</th>
+                            <th>Available/
+                                <p>Sold</p>
+                            </th>
                             <th>Delete Item</th>
                             <th>Advertise</th>
                         </tr>
@@ -43,9 +47,11 @@ const MyProducts = () => {
                                             <img className='w-full rounded' src={product.img} alt="Car Pic" />
                                         </div>
                                     </td>
-                                    <td className='text-gray-800'>{product.car_model}</td>
-                                    <td className='text-gray-800'><strong>{product.brand}</strong></td>
+                                    <td className='text-gray-800'>{product.car_model}
+                                        <p><strong>{product.brand}</strong></p>
+                                    </td>
                                     <td className=''><strong className='text-warning'>${product.price}</strong></td>
+                                    <td className='text-gray-800'>{product.sold ? <strong className='text-red-600'>Sold</strong> : <strong className='text-green-500'>Available</strong>}</td>
                                     <td className='text-gray-800'>
                                         <button className='btn btn-error btn-sm'>Delete</button>
                                     </td>

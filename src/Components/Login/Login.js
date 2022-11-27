@@ -1,25 +1,34 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/Context';
+import useJWT from '../../Hooks/useJWT';
 import { toastify } from '../Shared/Toast';
 
 const Login = () => {
     const [error, setError] = useState('')
     const { user, LoginHandler, GoogleHandler, GitHubHandler } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [userEmail, setUserEmail] = useState()
     const Navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
 
+    const { isToken } = useJWT(userEmail)
+
+    if (isToken) {
+        toastify('Login successful')
+        Navigate(from, { replace: true })
+    }
     const LoginData = (data) => {
         const email = data.email;
         const password = data.password;
         LoginHandler(email, password)
             .then(result => {
-                console.log(result.user);
+                const email = result.user?.email
                 setError('')
-                toastify('Loign Successfull')
-                Navigate('/')
+                setUserEmail(email)
             })
             .catch(err => {
                 setError(err.message)
@@ -41,7 +50,6 @@ const Login = () => {
                     role: 'buyer'
                 }
                 saveUser(data)
-                // console.log(data);
             })
             .catch(err => {
                 setError(err.message)
@@ -61,7 +69,6 @@ const Login = () => {
                     role: 'buyer'
                 }
                 saveUser(data)
-                // console.log(data);
             })
             .catch(err => {
                 setError(err.message)
@@ -77,10 +84,9 @@ const Login = () => {
             body: JSON.stringify(data)
         })
             .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
-                    toastify('Login successful')
-                    Navigate('/')
+            .then(result => {
+                if (result.acknowledged) {
+                    setUserEmail(data.email)
                 }
             })
     }
