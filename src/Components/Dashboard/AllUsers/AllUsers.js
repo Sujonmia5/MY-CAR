@@ -9,7 +9,11 @@ const AllUsers = () => {
     const { data: Users = [], isLoading, refetch } = useQuery({
         queryKey: ['Usersed'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users')
+            const res = await fetch('http://localhost:5000/users', {
+                headers: {
+                    authorization: `${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json()
             return data
         }
@@ -18,6 +22,9 @@ const AllUsers = () => {
     const AdminHandler = (email, role) => {
         fetch(`http://localhost:5000/users?email=${email}&&role=${role}`, {
             method: 'PUT',
+            headers: {
+                authorization: `${localStorage.getItem('accessToken')}`
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -31,6 +38,9 @@ const AllUsers = () => {
     const AdminRemoveHandler = (email, role) => {
         fetch(`http://localhost:5000/users?email=${email}&&role=${role}`, {
             method: 'PUT',
+            headers: {
+                authorization: `${localStorage.getItem('accessToken')}`
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -43,6 +53,9 @@ const AllUsers = () => {
     const UserDeleteHandler = (email) => {
         fetch(`http://localhost:5000/users?email=${email}`, {
             method: 'DELETE',
+            headers: {
+                authorization: `${localStorage.getItem('accessToken')}`
+            }
         })
             .then(res => res.json())
             .then(data => {

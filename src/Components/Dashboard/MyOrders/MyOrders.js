@@ -9,7 +9,11 @@ const MyOrders = () => {
     const { data: MyOrders = [], isLoading, refetch } = useQuery({
         queryKey: ['MyOrders', user.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/orders?email=${user?.email}`)
+            const res = await fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+                headers: {
+                    authorization: `${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json()
             return data;
         }
@@ -19,10 +23,15 @@ const MyOrders = () => {
         return <Spinner />
     }
 
+    console.log(MyOrders);
+
     const orderDeleteHandler = (id) => {
         console.log(id);
         fetch(`http://localhost:5000/orders?id=${id}`, {
             method: "DELETE",
+            headers: {
+                authorization: `${localStorage.getItem('accessToken')}`
+            }
         })
             .then(res => res.json())
             .then(data => {

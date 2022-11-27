@@ -8,11 +8,31 @@ const MyProducts = () => {
     const { data: MyProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['My Product', user.email, user.displayName],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myProduct?email=${user?.email}&name=${user?.displayName}`)
+            const res = await fetch(`http://localhost:5000/myProduct?email=${user?.email}&name=${user?.displayName}`, {
+                headers: {
+                    authorization: `${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json()
             return data;
         }
     })
+    const AdvertiseHandler = (product) => {
+        const { brand, car_model, img, address, buy, color, condition, date, fuel_type, price, seller_info
+        } = product
+        const advertise = {
+            brand, car_model, img, address, buy, color, condition, date, fuel_type, price, seller_info, carId: product._id,
+            advertise: true
+        }
+        fetch(`http://localhost:5000/advertise`, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                authorization: `${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(advertise)
+        })
+    }
 
     if (isLoading || loading) {
         return <Spinner></Spinner>
@@ -56,7 +76,7 @@ const MyProducts = () => {
                                         <button className='btn btn-error btn-sm'>Delete</button>
                                     </td>
                                     <td className='text-gray-800'>
-                                        <button className={product.sold === true ? `btn-disabled btn btn-sm bg-slate-600 text-gray-300` : 'btn btn-success btn-sm'}>advertise</button>
+                                        <button onClick={() => AdvertiseHandler(product)} className={product.sold === true ? `btn-disabled btn btn-sm bg-slate-600 text-gray-300` : 'btn btn-success btn-sm'}>Advertise</button>
                                     </td>
                                 </tr>)
                         }

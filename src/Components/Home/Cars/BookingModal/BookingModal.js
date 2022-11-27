@@ -9,7 +9,7 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
     const bookingHandler = (event) => {
         event.preventDefault()
         const number = event.target.number.value;
-        const location = event.target.location.value;
+        const location = event.target.Location.value;
         const orderData = {
             brand,
             car_model,
@@ -28,7 +28,8 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
         fetch('http://localhost:5000/orders', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(orderData)
         })
@@ -82,17 +83,15 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
 
                             <div className="mb-1 sm:mb-2">
                                 <label htmlFor="number" className="text-gray-800 label label-text text-start w-full font-medium">Phone Number</label>
-                                <input placeholder="phone number" type="text" name="number" required className="flex-grow disabled disabled:bg-slate-600 text-gray-100 font-medium w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                                <input placeholder="phone number" type="text" name="number" required className="flex-grow disabled disabled:bg-slate-600 text-gray-900 font-medium w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-
-
                             <div className="mb-1 sm:mb-2">
                                 <label htmlFor="meetLocation" className="text-gray-800 label label-text text-start w-full font-medium"
                                 >
                                     Meeting Location
                                 </label>
-                                <input placeholder="Location" type="text" name="location" required className="flex-grow disabled disabled:bg-slate-600 text-gray-100 font-medium w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                                <input placeholder="Location" type="text" name="Location" required className="flex-grow disabled disabled:bg-slate-600 text-gray-900 font-medium w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 "
                                 />
                             </div>
 

@@ -12,7 +12,7 @@ const AddProduct = () => {
     const { data: brandCategory = [], isLoading } = useQuery({
         queryKey: ['addProduct'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/category')
+            const res = await fetch('http://localhost:5000/CategoryData')
             const data = await res.json()
             return data;
         }
@@ -57,7 +57,8 @@ const AddProduct = () => {
         fetch('http://localhost:5000/cars', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(AddCar)
         })
@@ -77,56 +78,56 @@ const AddProduct = () => {
                 <form onSubmit={handleSubmit(carAddHandler)}>
                     <div className="mt-8 grid lg:grid-cols-3 gap-4">
                         <div>
-                            <label for="name" className="text-sm text-gray-700 block mb-1 font-medium">Brand</label>
+                            <label htmlFor="name" className="text-sm text-gray-700 block mb-1 font-medium">Brand</label>
                             <select
                                 {...register('brand', { required: 'Please Enter your brand name' })} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" >
                                 {
-                                    brandCategory.map(brand => <option key={brand._id} id='brand' value={brand.Brand}>{brand.Brand}</option>)
+                                    brandCategory.map(brand => <option key={brand._id} id='brand' defaultValue={brand.Brand}>{brand.Brand}</option>)
                                 }
                             </select>
                             {errors.brand && <label className='text-red-600 text-left' >{errors.brand?.message}</label>}
                         </div>
 
                         <div>
-                            <label for="car_model" className="text-sm text-gray-700 block mb-1 font-medium">Car Model</label>
+                            <label htmlFor="car_model" className="text-sm text-gray-700 block mb-1 font-medium">Car Model</label>
                             <input {...register('car_model', { required: 'Please Provide your cars model' })} type="text" name="car_model" id="car_model" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="Cars Model" />
                             {errors.car_model && <label className='text-red-600 text-left' >{errors.car_model?.message}</label>}
                         </div>
 
                         <div>
-                            <label for="location" className="text-sm text-gray-700 block mb-1 font-medium">Location</label>
+                            <label htmlFor="location" className="text-sm text-gray-700 block mb-1 font-medium">Location</label>
                             <input {...register('location', { required: 'Please provide your location' })} type="text" name="location" id="location" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="Location" />
                             {errors.location && <label className='text-red-600 text-left' >{errors.location?.message}</label>}
                         </div>
 
                         <div>
-                            <label for="registration" className="text-sm text-gray-700 block mb-1 font-medium">Registration</label>
+                            <label htmlFor="registration" className="text-sm text-gray-700 block mb-1 font-medium">Registration</label>
                             <input {...register('registration', {
                                 required: 'Please enter your cars registration year'
                             })} type="text" name="registration" id="registration" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="Car Registration Year" />
                             {errors.registration && <label className='text-red-600 text-left' >{errors.registration?.message}</label>}
                         </div>
                         <div>
-                            <label for="registration" className="text-sm text-gray-700 block mb-1 font-medium">Condition</label>
+                            <label htmlFor="registration" className="text-sm text-gray-700 block mb-1 font-medium">Condition</label>
                             <select {...register('condition', {
                                 required: 'Choose your car Condition'
                             })} className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="Car Registration Year">
-                                <option id='condition' value='Used' selected >Used</option>
-                                <option id='condition' value='New'>New</option>
+                                <option id='condition' defaultValue='Used' selected >Used</option>
+                                <option id='condition' defaultValue='New'>New</option>
                             </select>
-                            {errors.value && <label className='text-red-600 text-left' >{errors.value?.message}</label>}
+                            {errors.condition && <label className='text-red-600 text-left' >{errors.condition?.message}</label>}
                         </div>
                         <div>
-                            <label for="fuel_type" className="text-sm text-gray-700 block mb-1 font-medium">Fuel Type</label>
+                            <label htmlFor="fuel_type" className="text-sm text-gray-700 block mb-1 font-medium">Fuel Type</label>
                             <input {...register('fuel_type')} type="text" name="fuel_type" id="fuel_type" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="Fuel_Type" />
                         </div>
                         <div>
-                            <label for="price" className="text-sm text-gray-700 block mb-1 font-medium"> Price</label>
+                            <label htmlFor="price" className="text-sm text-gray-700 block mb-1 font-medium"> Price</label>
                             <input {...register('price', { required: 'Enter Your sell price' })} type="text" name="price" id="price" className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" placeholder="Enter your selling Amount" />
                             {errors.price && <label className='text-red-600 text-left' >{errors.price?.message}</label>}
                         </div>
                         <div>
-                            <label for="image" className="text-sm text-gray-700 block mb-1 font-medium"> Choose your cars Photos</label>
+                            <label htmlFor="image" className="text-sm text-gray-700 block mb-1 font-medium"> Choose your cars Photos</label>
                             <input {...register('image', { required: 'Please Choose your car photos' })} type="file"
                                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-600 " />
                             {errors.image && <label className='text-red-600 text-left' >{errors.image?.message}</label>}

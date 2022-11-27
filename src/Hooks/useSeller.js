@@ -5,9 +5,14 @@ const useSeller = (email) => {
     const [sellerLoading, setSellerLoading] = useState(true)
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/sellerUser?email=${email}`)
+            fetch(`http://localhost:5000/sellerUser?email=${email}`, {
+                headers: {
+                    authorization: `${localStorage.getItem('accessToken')}`
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data);
                     if (data.isSeller) {
                         setIsSeller(data.isSeller)
                         setSellerLoading(false)

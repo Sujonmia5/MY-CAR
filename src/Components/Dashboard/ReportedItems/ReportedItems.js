@@ -7,7 +7,11 @@ const ReportedItems = () => {
     const { data: ReportCars = [], isLoading, refetch } = useQuery({
         queryKey: ['reported'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/report')
+            const res = await fetch('http://localhost:5000/report', {
+                headers: {
+                    authorization: `${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json()
             return data
         }
@@ -19,7 +23,10 @@ const ReportedItems = () => {
     const deleteReport = (id) => {
         console.log(id);
         fetch(`http://localhost:5000/report?id=${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                authorization: `${localStorage.getItem('accessToken')}`
+            }
         })
             .then(res => res.json())
             .then(data => {

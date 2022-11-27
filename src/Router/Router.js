@@ -29,7 +29,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/cars/:brand', element: <PrivateRoute><Cars /></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/cars/data/${params.brand}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/cars/data/${params.brand}`, {
+                    headers: {
+                        authorization: `${localStorage.getItem('accessToken')}`
+                    }
+                })
 
             },
             {

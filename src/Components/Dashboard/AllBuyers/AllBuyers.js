@@ -11,7 +11,11 @@ const AllBuyers = () => {
     const { data: AllBuyers = [], isLoading, refetch } = useQuery({
         queryKey: ['allBuyers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/sellers?role=buyer')
+            const res = await fetch('http://localhost:5000/sellers?role=buyer', {
+                headers: {
+                    authorization: `${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json()
             return data
         }
@@ -22,6 +26,9 @@ const AllBuyers = () => {
     const MakeSeller = (id) => {
         fetch(`http://localhost:5000/sellers?id=${id}&role=seller`, {
             method: "PUT",
+            headers: {
+                authorization: `${localStorage.getItem('accessToken')}`
+            }
         })
             .then(res => res.json())
             .then(data => {
