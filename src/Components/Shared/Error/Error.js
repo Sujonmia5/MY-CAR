@@ -2,18 +2,19 @@ import React from 'react';
 
 const Error = () => {
     return (
-        <section className="flex items-center h-full p-16 dark:bg-gray-900 dark:text-gray-100">
-            <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-                <div className="max-w-md text-center">
-                    <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
-                        <span className="sr-only">Error</span>404
-                    </h2>
-                    <p className="text-2xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-                    <p className="mt-4 mb-8 dark:text-gray-400">But dont worry, you can find plenty of other things on our homepage.</p>
-                    <a rel="noopener noreferrer" href="#" className="px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900" alt=''>Back to homepage</a>
-                </div>
+        <div className="flex items-center flex-col justify-center lg:flex-row py-28 px-6 md:px-24 md:py-20 lg:py-32 gap-16 lg:gap-28">
+            <div className="w-full lg:w-1/2">
+                <img className="hidden lg:block" src="https://i.ibb.co/v30JLYr/Group-192-2.png" alt="" />
+                <img className="hidden md:block lg:hidden" src="https://i.ibb.co/c1ggfn2/Group-193.png" alt="" />
+                <img className="md:hidden" src="https://i.ibb.co/8gTVH2Y/Group-198.png" alt="" />
             </div>
-        </section>
+            <div className="w-full lg:w-1/2">
+                <h1 className="py-4 text-3xl lg:text-4xl font-extrabold text-gray-800">Looks like you've found the doorway to the great nothing</h1>
+                <p className="py-4 text-base text-gray-800">Why You See this Private Route</p>
+                <p className="py-2 text-base mb-5 text-gray-800">Sorry about that! Please visit our hompage to get where you need to go.</p>
+                <a href='/' className="w-full lg:w-auto my-4 border rounded-md px-1 sm:px-16 py-5 bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50" alt=''>Go back to Homepage</a>
+            </div>
+        </div>
     );
 };
 

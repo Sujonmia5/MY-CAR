@@ -24,7 +24,7 @@ export const Navbar = () => {
         {
             user?.uid && <li><Link to="/dashboard" aria-label="Dashboard" title="Dashboard" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">Dashboard</Link></li>
         }
-        <li><a href="#Category" id="Category" aria-label="Category" title="Category" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"> Blog</a></li>
+        <li><Link to="/blog" id="Category" aria-label="Category" title="Category" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"> Blog</Link></li>
 
         <li><Link to="/about" aria-label="About" title="About" className="hover:text-primary font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">About</Link></li>
 

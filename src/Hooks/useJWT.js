@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const useJWT = (email) => {
-    const [isToken, setIsToken] = useState()
+    const [isToken, setIsToken] = useState(false)
     console.log(email);
     useEffect(() => {
         if (email) {

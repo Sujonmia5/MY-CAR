@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Context/Context';
 import Spinner from '../../Shared/Spinner/Spinner';
 
@@ -17,22 +18,24 @@ const MyProducts = () => {
             return data;
         }
     })
-    const AdvertiseHandler = (product) => {
-        const { brand, car_model, img, address, buy, color, condition, date, fuel_type, price, seller_info
-        } = product
-        const advertise = {
-            brand, car_model, img, address, buy, color, condition, date, fuel_type, price, seller_info, carId: product._id,
-            advertise: true
-        }
-        fetch(`http://localhost:5000/advertise`, {
-            method: "POST",
+    const AdvertiseHandler = (id) => {
+        console.log(id);
+        fetch(`http://localhost:5000/advertise?id=${id}`, {
+            method: "PUT",
             headers: {
-                'content-type': 'application/json',
                 authorization: `${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify(advertise)
         })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Advertise Successful')
+                    refetch()
+                }
+
+            })
     }
+
 
     if (isLoading || loading) {
         return <Spinner></Spinner>
@@ -76,7 +79,7 @@ const MyProducts = () => {
                                         <button className='btn btn-error btn-sm'>Delete</button>
                                     </td>
                                     <td className='text-gray-800'>
-                                        <button onClick={() => AdvertiseHandler(product)} className={product.sold === true ? `btn-disabled btn btn-sm bg-slate-600 text-gray-300` : 'btn btn-success btn-sm'}>Advertise</button>
+                                        <button onClick={() => AdvertiseHandler(product._id)} className={product.advertise ? `btn-disabled btn btn-sm bg-slate-600 text-gray-300` : 'btn btn-success btn-sm'}>Advertise</button>
                                     </td>
                                 </tr>)
                         }

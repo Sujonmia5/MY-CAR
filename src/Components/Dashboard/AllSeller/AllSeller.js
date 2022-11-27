@@ -73,7 +73,6 @@ const AllSeller = () => {
 
     return (
         <>
-            <h1 className='text-gray-800 text-center'>ALL SELLERS</h1>
             <div className='flex justify-start w-full md:h-[70vh]  mt-10'>
                 <div className="container pl-10 pr-36 overflow-x-auto col-span-4">
                     <table className="table w-full">

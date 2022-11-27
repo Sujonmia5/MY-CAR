@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import Blog from "../Components/Blog/Blog";
 import AddProduct from "../Components/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../Components/Dashboard/AllBuyers/AllBuyers";
 import AllSeller from "../Components/Dashboard/AllSeller/AllSeller";
@@ -99,5 +100,8 @@ export const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: '/blog', element: <Blog></Blog>
+    }
 
 ])

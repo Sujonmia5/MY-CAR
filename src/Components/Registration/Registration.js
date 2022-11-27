@@ -173,7 +173,7 @@ const Registration = () => {
                                 </div>
                             </div>
                             <div className="flex items-center justify-center mt-8">
-                                <button className="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">Create Account</button>
+                                <button className="text-white py-2 px-4 uppercase rounded btn-primary shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">Create Account</button>
                             </div>
                         </form>
                         <div className=" rounded-t-lg px-8 pt-8">

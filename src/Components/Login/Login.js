@@ -10,7 +10,7 @@ const Login = () => {
     const [error, setError] = useState('')
     const { user, LoginHandler, GoogleHandler, GitHubHandler } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [userEmail, setUserEmail] = useState()
+    const [userEmail, setUserEmail] = useState(null)
     const Navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/'

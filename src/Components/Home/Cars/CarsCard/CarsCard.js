@@ -28,7 +28,6 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
     if (isLoading) {
         return <Spinner />
     }
-
     console.log(verifyUser);
     const reportHandler = (car) => {
         // console.log(car);
