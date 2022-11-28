@@ -5,7 +5,7 @@ const useAdmin = (email) => {
     const [adminLoading, setAdminLoading] = useState(true)
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/adminUser?email=${email}`, {
+            fetch(`https://assignment-12-server-side-hazel.vercel.app/adminUser?email=${email}`, {
                 headers: {
                     authorization: `${localStorage.getItem('accessToken')}`
                 }
@@ -21,7 +21,7 @@ const useAdmin = (email) => {
                 })
         }
     }, [email])
-    // console.log(isAdmin);
+    // (isAdmin);
     return { adminLoading, isAdmin }
 
 };

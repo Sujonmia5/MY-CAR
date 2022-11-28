@@ -7,7 +7,7 @@ const ReportedItems = () => {
     const { data: ReportCars = [], isLoading, refetch } = useQuery({
         queryKey: ['reported'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/report', {
+            const res = await fetch('https://assignment-12-server-side-hazel.vercel.app/report', {
                 headers: {
                     authorization: `${localStorage.getItem('accessToken')}`
                 }
@@ -21,8 +21,7 @@ const ReportedItems = () => {
         return <Spinner />
     }
     const deleteReport = (id) => {
-        console.log(id);
-        fetch(`http://localhost:5000/report?id=${id}`, {
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/report?id=${id}`, {
             method: "DELETE",
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`
@@ -34,7 +33,7 @@ const ReportedItems = () => {
                     toast.success('Report Deleted Successful')
                     refetch()
                 }
-                console.log(data);
+
             })
     }
     return (

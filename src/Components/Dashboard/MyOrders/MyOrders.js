@@ -5,11 +5,10 @@ import Spinner from '../../Shared/Spinner/Spinner';
 
 const MyOrders = () => {
     const { user, loading } = useContext(AuthContext)
-    console.log(user.email);
     const { data: MyOrders = [], isLoading, refetch } = useQuery({
         queryKey: ['MyOrders', user.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+            const res = await fetch(`https://assignment-12-server-side-hazel.vercel.app/orders?email=${user?.email}`, {
                 headers: {
                     authorization: `${localStorage.getItem('accessToken')}`
                 }
@@ -23,11 +22,10 @@ const MyOrders = () => {
         return <Spinner />
     }
 
-    console.log(MyOrders);
 
     const orderDeleteHandler = (id) => {
-        console.log(id);
-        fetch(`http://localhost:5000/orders?id=${id}`, {
+
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/orders?id=${id}`, {
             method: "DELETE",
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`
@@ -36,7 +34,7 @@ const MyOrders = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount) {
-                    console.log(data);
+
                     refetch()
                 }
             })

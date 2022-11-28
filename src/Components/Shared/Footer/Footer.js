@@ -21,12 +21,15 @@ const Footer = () => {
                 <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                     <div>
                         <h2 className="mb-6 text-sm font-semibold  uppercase dark:text-white">Resources</h2>
-                        <ul className="text-gray-600 dark:text-gray-400">
+                        <ul className="text-white dark:text-gray-400">
                             <li className="mb-4">
-                                <a href="https://flowbite.com/" className="hover:underline">Flowbite</a>
+                                <p className="hover:underline">DaisyUI</p>
                             </li>
-                            <li>
-                                <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>
+                            <li className="mb-4">
+                                <p className="hover:underline">Preline</p>
+                            </li>
+                            <li className="mb-4">
+                                <p className="hover:underline">Flowbite</p>
                             </li>
                         </ul>
                     </div>
@@ -43,7 +46,7 @@ const Footer = () => {
                     </div>
                     <div>
                         <h2 className="mb-6 text-sm font-semibold  uppercase dark:text-white">Legal</h2>
-                        <ul className="text-gray-600 dark:text-gray-400">
+                        <ul className="text-white dark:text-gray-400">
                             <li className="mb-4">
                                 <a href="#" className="hover:underline">Privacy Policy</a>
                             </li>
@@ -56,7 +59,7 @@ const Footer = () => {
             </div>
             <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
             <div className="sm:flex sm:items-center sm:justify-between">
-                <span className="text-sm sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com/" className="hover:underline">Flowbite™</a>. All Rights Reserved.
+                <span className="text-sm sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com/" className="hover:underline">MY Car</a>. All Rights Reserved.
                 </span>
                 <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
                     <a href="#" className="hover: dark:hover:text-white">
@@ -81,7 +84,7 @@ const Footer = () => {
                     </a>
                 </div>
             </div>
-        </footer>
+        </footer >
 
     );
 };

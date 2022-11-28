@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/cars/:brand', element: <PrivateRoute><Cars /></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/cars/data/${params.brand}`, {
+                loader: ({ params }) => fetch(`https://assignment-12-server-side-hazel.vercel.app/cars/data/${params.brand}`, {
                     headers: {
                         authorization: `${localStorage.getItem('accessToken')}`
                     }
@@ -43,6 +43,9 @@ export const router = createBrowserRouter([
             {
                 path: '/register', element: <Registration />
             },
+            {
+                path: '/blog', element: <Blog></Blog>
+            }
         ]
     },
     {
@@ -99,9 +102,6 @@ export const router = createBrowserRouter([
                 </PrivateRoute>
             }
         ]
-    },
-    {
-        path: '/blog', element: <Blog></Blog>
     }
 
 ])

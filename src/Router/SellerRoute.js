@@ -14,8 +14,6 @@ const SellerRoute = ({ children }) => {
         return <Spinner />
     }
 
-    console.log(isSeller);
-    // eslint-disable-next-line no-mixed-operators
     if (user && isSeller) {
         return children
     }

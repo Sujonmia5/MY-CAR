@@ -9,26 +9,32 @@ const AddProduct = () => {
     const { user } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [click, setClick] = useState(false)
+
+    // Brand Data load for Add product
     const { data: brandCategory = [], isLoading } = useQuery({
         queryKey: ['addProduct'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/CategoryData')
+            const res = await fetch('https://assignment-12-server-side-hazel.vercel.app/CategoryData')
             const data = await res.json()
             return data;
         }
     })
 
+    // Spinner use for loading time
     if (isLoading) {
         return <Spinner></Spinner>
     }
-    // brand, car_model, img, address, buy, color, condition, date, fuel_type, price, seller_info, selling_address
+
+    // Product add Function
     const carAddHandler = (data) => {
         setClick(true)
+
+        // img hosting 
         const formData = new FormData()
         formData.append('image', data.image[0])
         const imgKey = process.env.REACT_APP_IMGBB_KEY
-        console.log(data, formData);
-        fetch(`https://api.imgbb.com/1/upload?key=020578539c95626a9a900d21031a76b1`, {
+
+        fetch(`https://api.imgbb.com/1/upload?key=${imgKey}`, {
             method: "POST",
             body: formData
         })
@@ -54,7 +60,7 @@ const AddProduct = () => {
     }
 
     const product = (AddCar) => {
-        fetch('http://localhost:5000/cars', {
+        fetch('https://assignment-12-server-side-hazel.vercel.app/cars', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

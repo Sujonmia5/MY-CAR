@@ -9,7 +9,7 @@ const AllUsers = () => {
     const { data: Users = [], isLoading, refetch } = useQuery({
         queryKey: ['Usersed'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users', {
+            const res = await fetch('https://assignment-12-server-side-hazel.vercel.app/users', {
                 headers: {
                     authorization: `${localStorage.getItem('accessToken')}`
                 }
@@ -20,7 +20,7 @@ const AllUsers = () => {
     })
 
     const AdminHandler = (email, role) => {
-        fetch(`http://localhost:5000/users?email=${email}&&role=${role}`, {
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/users?email=${email}&&role=${role}`, {
             method: 'PUT',
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`
@@ -36,7 +36,7 @@ const AllUsers = () => {
             })
     }
     const AdminRemoveHandler = (email, role) => {
-        fetch(`http://localhost:5000/users?email=${email}&&role=${role}`, {
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/users?email=${email}&&role=${role}`, {
             method: 'PUT',
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`
@@ -51,7 +51,7 @@ const AllUsers = () => {
             })
     }
     const UserDeleteHandler = (email) => {
-        fetch(`http://localhost:5000/users?email=${email}`, {
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/users?email=${email}`, {
             method: 'DELETE',
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`

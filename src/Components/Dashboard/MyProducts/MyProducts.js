@@ -9,7 +9,7 @@ const MyProducts = () => {
     const { data: MyProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['My Product', user.email, user.displayName],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myProduct?email=${user?.email}&name=${user?.displayName}`, {
+            const res = await fetch(`https://assignment-12-server-side-hazel.vercel.app/myProduct?email=${user?.email}&name=${user?.displayName}`, {
                 headers: {
                     authorization: `${localStorage.getItem('accessToken')}`
                 }
@@ -19,8 +19,7 @@ const MyProducts = () => {
         }
     })
     const AdvertiseHandler = (id) => {
-        console.log(id);
-        fetch(`http://localhost:5000/advertise?id=${id}`, {
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/advertise?id=${id}`, {
             method: "PUT",
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`
@@ -79,7 +78,7 @@ const MyProducts = () => {
                                         <button className='btn btn-error btn-sm'>Delete</button>
                                     </td>
                                     <td className='text-gray-800'>
-                                        <button onClick={() => AdvertiseHandler(product._id)} className={product.advertise ? `btn-disabled btn btn-sm bg-slate-600 text-gray-300` : 'btn btn-success btn-sm'}>Advertise</button>
+                                        <button onClick={() => AdvertiseHandler(product._id)} className={product.advertise || product.sold ? `btn-disabled btn btn-sm bg-slate-600 text-gray-300` : 'btn btn-success btn-sm'}>Advertise</button>
                                     </td>
                                 </tr>)
                         }

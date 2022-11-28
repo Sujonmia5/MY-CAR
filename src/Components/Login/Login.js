@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -17,10 +17,12 @@ const Login = () => {
 
     const { isToken } = useJWT(userEmail)
 
-    if (isToken) {
-        toastify('Login successful')
-        Navigate(from, { replace: true })
-    }
+    useEffect(() => {
+        if (isToken) {
+            return Navigate(from, { replace: true })
+        }
+    }, [isToken, from, Navigate])
+
     const LoginData = (data) => {
         const email = data.email;
         const password = data.password;
@@ -32,7 +34,7 @@ const Login = () => {
             })
             .catch(err => {
                 setError(err.message)
-                console.log(err);
+                    (err);
             })
     }
 
@@ -42,7 +44,7 @@ const Login = () => {
             .then(result => {
                 setError('')
                 const user = result.user
-                console.log(user);
+                    (user);
                 const data = {
                     name: user.displayName,
                     email: user.email,
@@ -61,7 +63,7 @@ const Login = () => {
             .then(result => {
                 setError('')
                 const user = result.user
-                console.log(user);
+                    (user);
                 const data = {
                     name: user.displayName,
                     email: user.email,
@@ -76,7 +78,7 @@ const Login = () => {
     }
 
     const saveUser = (data) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://assignment-12-server-side-hazel.vercel.app/users', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

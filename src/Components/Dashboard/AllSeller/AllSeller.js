@@ -10,7 +10,7 @@ const AllSeller = () => {
     const { data: AllSellers = [], isLoading, refetch } = useQuery({
         queryKey: ['allSeller'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/sellers?role=seller', {
+            const res = await fetch('https://assignment-12-server-side-hazel.vercel.app/sellers?role=seller', {
                 headers: {
                     authorization: `${localStorage.getItem('accessToken')}`
                 }
@@ -24,7 +24,7 @@ const AllSeller = () => {
     }
 
     const RemoveSeller = (id) => {
-        fetch(`http://localhost:5000/sellers?id=${id}&role=buyer`, {
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/sellers?id=${id}&role=buyer`, {
             method: "PUT",
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`
@@ -32,14 +32,14 @@ const AllSeller = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+
                 refetch()
             })
     }
 
     const VerifySeller = (seller) => {
-        console.log(seller.email);
-        fetch(`http://localhost:5000/verify/seller?email=${seller.email}`, {
+
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/verify/seller?email=${seller.email}`, {
             method: "PUT",
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`
@@ -55,8 +55,8 @@ const AllSeller = () => {
     }
 
     const DeleteVerify = (seller) => {
-        console.log(seller.email);
-        fetch(`http://localhost:5000/verify/delete?email=${seller.email}`, {
+
+        fetch(`https://assignment-12-server-side-hazel.vercel.app/verify/delete?email=${seller.email}`, {
             method: "PUT",
             headers: {
                 authorization: `${localStorage.getItem('accessToken')}`

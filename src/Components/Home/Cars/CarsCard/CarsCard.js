@@ -15,7 +15,7 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
     const { data: verifyUser = {}, isLoading } = useQuery({
         queryKey: ['car', car],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/verify/check?email=${seller_info?.email}`, {
+            const res = await fetch(`https://assignment-12-server-side-hazel.vercel.app/verify/check?email=${car?.seller_info?.email}`, {
                 headers: {
                     authorization: `${localStorage.getItem('accessToken')}`
                 }
@@ -28,9 +28,11 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
     if (isLoading) {
         return <Spinner />
     }
-    console.log(verifyUser);
+
+
+
     const reportHandler = (car) => {
-        // console.log(car);
+        // (car);
         const { address, brand, buy, car_model, color, condition, fuel_type, img, model, price, seller_info, sold, selling_address, _id: carId } = car
 
         const reportedCar = {
@@ -43,7 +45,7 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
             }
         }
 
-        fetch('http://localhost:5000/report', {
+        fetch('https://assignment-12-server-side-hazel.vercel.app/report', {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -53,7 +55,6 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.acknowledged) {
                     toast.success('Reported Success')
                 }
@@ -77,7 +78,7 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
                         <p className='text-gray-600 text-sm'>Registration: {buy}</p>
                         <p className='text-gray-600 text-sm'>Fuel Type: {fuel_type}</p>
                         <p className='text-gray-600 text-sm'>Color: {color}</p>
-                        <p className='text-gray-600 text-sm'>Post Date: {date}</p>
+                        <p className='text-gray-600 text-sm'>Post Date: {date?.split('T')[0]}</p>
 
                         <p className="mb-3 text-gray-900 font-semibold dark:text-gray-400">Price: <strong className='text-red-600'>${price}</strong></p>
                     </div>

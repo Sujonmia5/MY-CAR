@@ -5,14 +5,13 @@ const useSeller = (email) => {
     const [sellerLoading, setSellerLoading] = useState(true)
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/sellerUser?email=${email}`, {
+            fetch(`https://assignment-12-server-side-hazel.vercel.app/sellerUser?email=${email}`, {
                 headers: {
                     authorization: `${localStorage.getItem('accessToken')}`
                 }
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     if (data.isSeller) {
                         setIsSeller(data.isSeller)
                         setSellerLoading(false)
@@ -20,7 +19,7 @@ const useSeller = (email) => {
                 })
         }
     }, [email])
-    console.log(isSeller);
+        (isSeller);
     return { sellerLoading, isSeller }
 
 };

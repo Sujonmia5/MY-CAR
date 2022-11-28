@@ -8,14 +8,11 @@ import Spinner from '../Shared/Spinner/Spinner';
 const DashboardTab = () => {
     const [sidebar, setSidebar] = useState(false)
     const { user, } = useContext(AuthContext)
-    const { isAdmin, adminLoading, } = useAdmin(user?.email)
+    const { isAdmin } = useAdmin(user?.email)
     const { isSeller } = useSeller(user?.email)
 
     let activeClassName = "text-gray-900 text-base border-b-2 inline-flex p-4 rounded-t-lg border-b-2 border-primary group"
 
-    // if (adminLoading || isSeller) {
-    //     return <Spinner></Spinner>
-    // }
 
     const dashboard = <>
         <li className="mr-2">

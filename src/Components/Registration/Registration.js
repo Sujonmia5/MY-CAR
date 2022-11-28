@@ -66,7 +66,7 @@ const Registration = () => {
             .then(result => {
                 setError('')
                 const user = result.user
-                console.log(user);
+                    (user);
                 const data = {
                     name: user.displayName,
                     email: user.email,
@@ -74,7 +74,7 @@ const Registration = () => {
                     role: userRole
                 }
                 saveUser(data)
-                // console.log(data);
+                // (data);
             })
             .catch(err => {
                 setError(err.message)
@@ -86,7 +86,7 @@ const Registration = () => {
             .then(result => {
                 setError('')
                 const user = result.user
-                console.log(user);
+                    (user);
                 const data = {
                     name: user.displayName,
                     email: user.email,
@@ -100,7 +100,7 @@ const Registration = () => {
             })
     }
     const saveUser = (data) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://assignment-12-server-side-hazel.vercel.app/users', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

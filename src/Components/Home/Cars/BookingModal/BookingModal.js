@@ -25,7 +25,7 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
             meeting_location: location,
         }
 
-        fetch('http://localhost:5000/orders', {
+        fetch('https://assignment-12-server-side-hazel.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -35,8 +35,6 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                console.log(data._id);
                 if (data.acknowledged) {
                     toast.success('Booking Done')
                     setModalClose(null)
