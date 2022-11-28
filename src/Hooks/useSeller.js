@@ -19,7 +19,6 @@ const useSeller = (email) => {
                 })
         }
     }, [email])
-        (isSeller);
     return { sellerLoading, isSeller }
 
 };

@@ -93,10 +93,7 @@ const CarsCard = ({ car, setBookingCar, setModalClose }) => {
                         <p className='mb-3 font-semibold text-gray-900 dark:text-gray-400'>Number: {seller_info?.number ? `${seller_info.number}` : 'Not a number'}</p>
                     </div>
                 </div>
-                <label onClick={() => {
-                    setBookingCar(car)
-                    setModalClose(true)
-                }} htmlFor="booked-modal" className={booking ? 'btn-disabled btn absolute bottom-2 btn-md right-2 bg-gray-600 text-gray-200' : 'btn absolute btn-primary bottom-2 btn-md right-2'}>{booking ? 'Already Booked' : 'Booking Now'}
+                <label onClick={() => setBookingCar(car)} htmlFor="booked-modal" className={booking ? 'btn-disabled btn absolute bottom-2 btn-md right-2 bg-gray-600 text-gray-200' : 'btn absolute btn-primary bottom-2 btn-md right-2'}>{booking ? 'Already Booked' : 'Booking Now'}
                     <FaArrowRight className='w-5 disabled:text-white  text-gray-200 ml-2'></FaArrowRight>
                 </label>
                 <div className='flex justify-start ml-4 pb-2'>

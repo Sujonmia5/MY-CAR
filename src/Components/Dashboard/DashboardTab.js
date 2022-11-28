@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../Context/Context';
 import useAdmin from '../../Hooks/useAdmin';
 import useSeller from '../../Hooks/useSeller';
-import Spinner from '../Shared/Spinner/Spinner';
 
 const DashboardTab = () => {
     const [sidebar, setSidebar] = useState(false)
