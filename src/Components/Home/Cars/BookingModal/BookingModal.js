@@ -8,6 +8,7 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
 
     const bookingHandler = (event) => {
         event.preventDefault()
+        console.log('btn click');
         const number = event.target.number.value;
         const location = event.target.Location.value;
         const orderData = {
@@ -29,6 +30,7 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                authorization: `${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(orderData)
         })
@@ -36,6 +38,7 @@ const BookingModal = ({ bookingCar, setModalClose }) => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Booking Done')
+                    setModalClose(null)
                 }
             })
     }
